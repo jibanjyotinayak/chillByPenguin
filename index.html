@@ -1,269 +1,734 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chíl by Penguin — Product Landing Page</title>
-  <meta name="description" content="Chíl by Penguin — Sparkling natural energy drinks sweetened with Tal Mishri. Multiple flavours, no refined sugar, instant refreshment." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --ink:#1b1b1f;--muted:#6a6a73;--brand:#ffb300;--accent:#29c26a;--ring:rgba(0,0,0,.06);
-      --bg1:#ff5ca2; --bg2:#ffb300; --bg3:#29c26a; --bg4:#3f51b5;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:linear-gradient(-45deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4));background-size:400% 400%;animation:gradientBG 18s ease infinite;} 
-    @keyframes gradientBG {0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    a{color:inherit;text-decoration:none}
-    .container{max-width:1200px;margin:0 auto;padding:0 20px}
-
-    /* NAV */
-    .nav{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.6);border-bottom:1px solid var(--ring);backdrop-filter:blur(8px)}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:90px}
-    .brand img{height:90px}
-    nav{display:flex;align-items:center;gap:20px}
-    nav a{color:#fff;opacity:.9;font-weight:600;font-size:16px;padding:10px 6px}
-    nav a:hover{opacity:1}
-    .menu-toggle{display:none;border:0;background:transparent;color:#fff;font-size:28px;line-height:1;padding:8px;cursor:pointer}
-
-    /* HERO */
-    .hero-banner{position:relative;min-height:100vh;width:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#000;}
-    .hero-banner video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%;z-index:0;}
-    .hero-banner .bg-blur{filter:blur(24px) brightness(.7);transform:scale(1.15);z-index:0;}
-    .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.6));z-index:1;}
-
-    /* INTRO CARD */
-    .intro-text{opacity:0;transition:opacity 1.2s ease;margin:-80px auto 60px;text-align:center;max-width:900px;padding:50px;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:#fff;border-radius:24px;box-shadow:0 12px 40px rgba(0,0,0,0.25);}
-    .intro-text.show{opacity:1;}
-    .intro-text h1{font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,56px);margin-bottom:16px;text-shadow:0 0 15px rgba(0,0,0,0.5)}
-    .intro-text p{font-size:clamp(14px,2.5vw,18px);color:#f3f3f3;margin-bottom:20px;}
-    .intro-text .btn{padding:14px 24px;font-weight:700;border-radius:24px;cursor:pointer;margin:0 8px;transition:transform 0.2s;display:inline-block}
-    .intro-text .btn:hover{transform:scale(1.05)}
-    .btn-primary{background:#fff;color:#111;}
-    .btn-secondary{background:transparent;border:2px solid #fff;color:#fff;}
-
-    /* BENEFITS */
-    .features{padding:80px 20px;background:linear-gradient(135deg,var(--bg3),#1b1b1f);color:#fff;text-align:center;border-radius:24px;margin:40px}
-    .features h2{font-size:clamp(26px,5vw,36px);margin-bottom:28px}
-    .grid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-    .card{background:rgba(255,255,255,0.1);border-radius:20px;padding:24px;border:1px solid rgba(255,255,255,0.2);transition:transform 0.3s ease, box-shadow 0.3s ease;}
-    .card:hover{transform:translateY(-10px);box-shadow:0 15px 30px rgba(0,0,0,0.4)}
-    .card h3{margin:12px 0;font-size:18px;color:#ffe16d}
-    .card p{color:#eee;font-size:14px}
-
-    /* PRODUCTS */
-    .products{padding:80px 20px;background:linear-gradient(135deg,#fff,var(--bg2));color:#111;text-align:center;border-radius:24px;margin:40px}
-    .products h2{font-size:clamp(26px,5vw,36px);margin-bottom:32px;color:#000}
-    .products-grid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
-    .product-card{background:#fff;border-radius:20px;box-shadow:0 6px 20px rgba(0,0,0,0.1);overflow:hidden;transition:transform 0.3s ease, box-shadow 0.3s ease;}
-    .product-card:hover{transform:translateY(-10px);box-shadow:0 12px 30px rgba(0,0,0,0.25)}
-    .product-card img{width:100%;height:240px;object-fit:cover}
-    .product-card h3{margin:16px 0 6px;font-size:18px;color:var(--bg4)}
-    .product-card p{margin:0 16px 20px;color:#444;font-size:14px}
-
-    /* REVIEWS / CTA */
-    .reviews{padding:80px 20px;background:linear-gradient(135deg,var(--bg4),#000);color:#fff;text-align:center;margin:40px;border-radius:24px}
-    .stars{color:#ffe16d;letter-spacing:2px;font-size:18px;text-shadow:0 0 8px rgba(255,255,255,0.3)}
-    .cta{padding:100px 20px;background:linear-gradient(135deg,#111,var(--bg2));color:#fff;text-align:center;margin:40px;border-radius:24px}
-    .cta h2{font-size:clamp(24px,5vw,40px);margin-bottom:16px;font-family:'Playfair Display',serif}
-    .cta p{color:#f0f0f0;margin-bottom:24px;font-size:16px}
-
-    footer{padding:24px 20px;background:#000;color:#ccc;display:flex;justify-content:space-between;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.2)}
-
-    /* RESPONSIVE NAV & LAYOUT */
-    @media (max-width: 900px){
-      .nav-inner{height:70px}
-      .brand img{height:60px}
-    }
-    @media (max-width: 768px){
-      .container{padding:0 16px}
-      .menu-toggle{display:block}
-      nav{position:absolute;top:70px;right:16px;background:rgba(0,0,0,.92);padding:12px 14px;border:1px solid rgba(255,255,255,.15);border-radius:14px;display:none;flex-direction:column;gap:6px}
-      nav.show{display:flex}
-      nav a{padding:10px 8px;font-size:15px}
-      .intro-text{margin:-40px 16px 40px;padding:28px}
-      .intro-text .btn{display:block;margin:10px auto}
-      .products-grid{gap:16px;grid-template-columns:repeat(2,1fr)}
-      .product-card img{height:180px}
-    }
-    @media (max-width: 420px){
-      .products-grid{grid-template-columns:1fr}
-    }
-
-    /* Aspect-ratio tweaks */
-    @media (max-aspect-ratio: 3/4){
-      .hero-banner video{object-position:50% 25%;}
-    }
-    @media (min-aspect-ratio: 21/9){
-      .hero-banner video{object-position:50% 40%;}
-    }
-  </style>
-</head>
-<body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="#top"><img src="./public/images/ChatGPT Image Aug 25, 2025, 05_46_18 PM.png" alt="Chíl by Penguin brand logo"/></a>
-      <button class="menu-toggle" aria-label="Toggle menu" id="menuBtn">☰</button>
-      <nav id="mainNav">
-        <a href="#features">Benefits</a>
-        <a href="#products">Products</a>
-        <a href="#reviews">Reviews</a>
-        <a href="#buy" class="btn-primary">Buy Now</a>
-      </nav>
-    </div>
-  </header>
-
-  <section class="hero-banner" id="top">
-    <video class="bg-blur" autoplay muted loop playsinline>
-      <source src="./public/video/chil.mp4" type="video/mp4">
-    </video>
-    <video id="heroVideo" autoplay muted loop playsinline>
-      <source src="./public/video/chil.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    <div class="hero-overlay"></div>
-  </section>
-
-  <section class="intro-text" id="introText">
-    <h1>Fuel Your Energy with Chíl by Penguin</h1>
-    <p>Sparkling natural energy drink — Pineapple flavour. Sweetened with Tal Mishri, no refined sugar. Bold taste, instant lift.</p>
-    <a href="#buy" class="btn btn-primary">Buy Pineapple — ₹49</a>
-    <a href="#features" class="btn btn-secondary">Discover More</a>
-  </section>
-
-  <section class="features" id="features">
-    <div class="container">
-      <h2>Why Choose Chíl?</h2>
-      <div class="grid">
-        <div class="card"><h3>🍯 Natural Sweetness</h3><p>Sweetened with Tal Mishri for a clean, balanced taste.</p></div>
-        <div class="card"><h3>⚡ Instant Energy</h3><p>A crisp sparkling boost to power through your day.</p></div>
-        <div class="card"><h3>🚫 No Refined Sugar</h3><p>Zero compromise on health — all flavour, no crash.</p></div>
-        <div class="card"><h3>💎 Mineral Rich</h3><p>Tal Mishri contains trace minerals that support hydration and overall wellness.</p></div>
-      </div>
-    </div>
-  </section>
-
-<section class="products" id="products">
-  <div class="container">
-    <h2>Our Flavours</h2>
-    <div class="products-grid">
-      <div class="product-card">
-        <img src="./public/images/pineapple.png" alt="Pineapple Can">
-        <h3>Pineapple</h3>
-        <p>Juicy, tangy-sweet tropical flavour with a refreshing bite.</p>
-      </div>
-      <div class="product-card">
-        <img src="./public/images/strawberry_upgraded.png" alt="Strawberry Can">
-        <h3>Strawberry</h3>
-        <p>Sweet, luscious berry taste with a naturally fruity aroma.</p>
-      </div>
-      <div class="product-card">
-        <img src="./public/images/blueberryy.png" alt="Blueberry Can">
-        <h3>Blueberry</h3>
-        <p>Rich, mildly tart flavour with a burst of berry sweetness.</p>
-      </div>
-      <div class="product-card">
-        <img src="./public/images/Grreenapple.png" alt="GreenApple Can">
-        <h3>Green Apple</h3>
-        <p>Crisp and tangy flavour with a refreshing sour-sweet balance.</p>
-      </div>
-      <div class="product-card">
-        <img src="./public/images/mango_upgraded.png" alt="Mango Can">
-        <h3>Mango</h3>
-        <p>Ripe, golden sweetness with smooth tropical richness.</p>
-      </div>
-      <div class="product-card">
-        <img src="./public/images/Lemon_upgraded.png" alt="Lemon Can">
-        <h3>Lemon</h3>
-        <p>Bright, zesty citrus flavour with a clean, sharp freshness.</p>
-      </div>
-      <div class="product-card">
-        <img src="./public/images/raspberryyy.png" alt="Raspberry Can">
-        <h3>Raspberry</h3>
-        <p>Vibrant sweet-tart berry taste with a bold fruity punch.</p>
-      </div>
-      <div class="product-card">
-        <img src="./public/images/Aampanna.png" alt="Aam Panna Can">
-        <h3>Aam Panna</h3>
-        <p>Refreshing raw mango tang with a hint of spiced sweetness.</p>
-      </div>
-      <div class="product-card">
-        <img src="./public/images/watermenon.png" alt="Watermelon can">
-        <h3>Watermelon</h3>
-        <p>Light, cooling sweetness with a juicy, summery flavour.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-  <section class="reviews" id="reviews">
-    <div class="container">
-      <h2>Loved by Drinkers</h2>
-      <div class="grid">
-        <div>
-          <div class="stars">★★★★★</div>
-          <p>“The ultimate fizzy energy. Tastes real, feels powerful.”</p>
-        </div>
-        <div>
-          <div class="stars">★★★★★</div>
-          <p>“Finally a drink that refreshes and energises without the sugar crash.”</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta" id="buy">
-    <div class="container">
-      <h2>Grab Your Chíl Pineapple Now!</h2>
-      <p>One sip is all it takes to feel the energy and freshness.</p>
-      <a href="#checkout" class="btn btn-primary">Buy Now — ₹49</a>
-    </div>
-  </section>
-
-  <footer>
-    <div>© <span id="year"></span> Penguin Beverages Pvt. Ltd.</div>
-    <div>Made with love • <a href="#">Privacy</a> • <a href="#">Refunds</a></div>
-  </footer>
-
-  <div id="checkout"></div>
-  <script>
-    document.querySelector('#year').textContent = new Date().getFullYear();
-
-    // Fade-in text below video after delay
-    window.addEventListener('load', ()=>{
-      setTimeout(()=>{
-        const intro = document.getElementById('introText');
-        intro.classList.add('show');
-        intro.scrollIntoView({behavior:'smooth',block:'start'});
-      }, 4000);
-    });
-
-    // Smart video fit
-    const vid = document.getElementById('heroVideo');
-    function fitVideo(){
-      if(!vid.videoWidth) return;
-      const rV = vid.videoWidth / vid.videoHeight;
-      const rW = window.innerWidth / window.innerHeight;
-      if (Math.abs(rV - rW) > 0.45){
-        vid.style.objectFit = 'contain';
-        vid.style.objectPosition = '50% 50%';
-      } else {
-        vid.style.objectFit = 'cover';
-        vid.style.objectPosition = '50% 35%';
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chíl by Penguin — Product Landing Page</title>
+    <meta
+      name="description"
+      content="Chíl by Penguin — Sparkling natural energy drinks sweetened with Tal Mishri. Multiple flavours, no refined sugar, instant refreshment."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #1b1b1f;
+        --muted: #6a6a73;
+        --brand: #ffb300;
+        --accent: #29c26a;
+        --ring: rgba(0, 0, 0, 0.06);
+        --bg1: #ff5ca2;
+        --bg2: #ffb300;
+        --bg3: #29c26a;
+        --bg4: #3f51b5;
       }
-    }
-    vid.addEventListener('loadedmetadata', fitVideo);
-    window.addEventListener('resize', fitVideo);
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, sans-serif;
+        color: var(--ink);
+        background: linear-gradient(
+          -45deg,
+          var(--bg1),
+          var(--bg2),
+          var(--bg3),
+          var(--bg4)
+        );
+        background-size: 400% 400%;
+        animation: gradientBG 18s ease infinite;
+      }
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
 
-    // Mobile nav toggle
-    const menuBtn = document.getElementById('menuBtn');
-    const mainNav = document.getElementById('mainNav');
-    menuBtn?.addEventListener('click', ()=>{
-      mainNav.classList.toggle('show');
-    });
-  </script>
-</body>
+      /* NAV */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(0, 0, 0, 0.6);
+        border-bottom: 1px solid var(--ring);
+        backdrop-filter: blur(8px);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 90px;
+      }
+      .brand img {
+        height: 90px;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      nav a {
+        color: #fff;
+        opacity: 0.9;
+        font-weight: 600;
+        font-size: 16px;
+        padding: 10px 6px;
+      }
+      nav a:hover {
+        opacity: 1;
+      }
+      .menu-toggle {
+        display: none;
+        border: 0;
+        background: transparent;
+        color: #fff;
+        font-size: 28px;
+        line-height: 1;
+        padding: 8px;
+        cursor: pointer;
+      }
+
+      /* HERO */
+      .hero-banner {
+        position: relative;
+        min-height: 100vh;
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #000;
+      }
+      .hero-banner video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 35%;
+        z-index: 0;
+      }
+      .hero-banner .bg-blur {
+        filter: blur(24px) brightness(0.7);
+        transform: scale(1.15);
+        z-index: 0;
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.2),
+          rgba(0, 0, 0, 0.6)
+        );
+        z-index: 1;
+      }
+
+      /* INTRO CARD */
+      .intro-text {
+        opacity: 0;
+        transition: opacity 1.2s ease;
+        margin: -80px auto 60px;
+        text-align: center;
+        max-width: 900px;
+        padding: 50px;
+        background: linear-gradient(135deg, var(--bg1), var(--bg2));
+        color: #fff;
+        border-radius: 24px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+      }
+      .intro-text.show {
+        opacity: 1;
+      }
+      .intro-text h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(32px, 6vw, 56px);
+        margin-bottom: 16px;
+        text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      }
+      .intro-text p {
+        font-size: clamp(14px, 2.5vw, 18px);
+        color: #f3f3f3;
+        margin-bottom: 20px;
+      }
+      .intro-text .btn {
+        padding: 14px 24px;
+        font-weight: 700;
+        border-radius: 24px;
+        cursor: pointer;
+        margin: 0 8px;
+        transition: transform 0.2s;
+        display: inline-block;
+      }
+      .intro-text .btn:hover {
+        transform: scale(1.05);
+      }
+      .btn-primary {
+        background: #fff;
+        color: #111;
+      }
+      .btn-secondary {
+        background: transparent;
+        border: 2px solid #fff;
+        color: #fff;
+      }
+
+      /* BENEFITS */
+      .features {
+        padding: 80px 20px;
+        background: linear-gradient(135deg, var(--bg3), #1b1b1f);
+        color: #fff;
+        text-align: center;
+        border-radius: 24px;
+        margin: 40px;
+      }
+      .features h2 {
+        font-size: clamp(26px, 5vw, 36px);
+        margin-bottom: 28px;
+      }
+      .grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      }
+      .card h3 {
+        margin: 12px 0;
+        font-size: 18px;
+        color: #ffe16d;
+      }
+      .card p {
+        color: #eee;
+        font-size: 14px;
+      }
+
+      /* PRODUCTS */
+      .products {
+        padding: 80px 20px;
+        background: linear-gradient(135deg, #fff, var(--bg2));
+        color: #111;
+        text-align: center;
+        border-radius: 24px;
+        margin: 40px;
+      }
+      .products h2 {
+        font-size: clamp(26px, 5vw, 36px);
+        margin-bottom: 32px;
+        color: #000;
+      }
+      .products-grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+      .product-card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      }
+      .product-card img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+      }
+      .product-card h3 {
+        margin: 16px 0 6px;
+        font-size: 18px;
+        color: var(--bg4);
+      }
+      .product-card p {
+        margin: 0 16px 20px;
+        color: #444;
+        font-size: 14px;
+      }
+
+      /* REVIEWS / CTA */
+      .reviews {
+        padding: 80px 20px;
+        background: linear-gradient(135deg, var(--bg4), #000);
+        color: #fff;
+        text-align: center;
+        margin: 40px;
+        border-radius: 24px;
+      }
+      .stars {
+        color: #ffe16d;
+        letter-spacing: 2px;
+        font-size: 18px;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+      }
+      .cta {
+        padding: 100px 20px;
+        background: linear-gradient(135deg, #111, var(--bg2));
+        color: #fff;
+        text-align: center;
+        margin: 40px;
+        border-radius: 24px;
+      }
+      .cta h2 {
+        font-size: clamp(24px, 5vw, 40px);
+        margin-bottom: 16px;
+        font-family: "Playfair Display", serif;
+      }
+      .cta p {
+        color: #f0f0f0;
+        margin-bottom: 24px;
+        font-size: 16px;
+      }
+
+      footer {
+        padding: 24px 20px;
+        background: #000;
+        color: #ccc;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* RESPONSIVE NAV & LAYOUT */
+      @media (max-width: 900px) {
+        .nav-inner {
+          height: 70px;
+        }
+        .brand img {
+          height: 60px;
+        }
+      }
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 16px;
+        }
+        .menu-toggle {
+          display: block;
+        }
+        nav {
+          position: absolute;
+          top: 70px;
+          right: 16px;
+          background: rgba(0, 0, 0, 0.92);
+          padding: 12px 14px;
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 14px;
+          display: none;
+          flex-direction: column;
+          gap: 6px;
+        }
+        nav.show {
+          display: flex;
+        }
+        nav a {
+          padding: 10px 8px;
+          font-size: 15px;
+        }
+        .intro-text {
+          margin: -40px 16px 40px;
+          padding: 28px;
+        }
+        .intro-text .btn {
+          display: block;
+          margin: 10px auto;
+        }
+        .products-grid {
+          gap: 16px;
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .product-card img {
+          height: 180px;
+        }
+      }
+      @media (max-width: 420px) {
+        .products-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Aspect-ratio tweaks */
+      @media (max-aspect-ratio: 3/4) {
+        .hero-banner video {
+          object-position: 50% 25%;
+        }
+      }
+      @media (min-aspect-ratio: 21/9) {
+        .hero-banner video {
+          object-position: 50% 40%;
+        }
+      }
+
+      /* contactUspage */
+      .contact {
+        padding: 60px 20px;
+        background: #fff;
+        border-radius: 24px;
+        margin: 40px;
+      }
+      .contact h2 {
+        margin-bottom: 16px;
+      }
+      #contactForm {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+      #contactForm .row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      #contactForm input,
+      #contactForm textarea {
+        flex: 1;
+        padding: 12px 14px;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        border-radius: 10px;
+        font-size: 14px;
+        outline: none;
+      }
+      #contactForm input:focus,
+      #contactForm textarea:focus {
+        border-color: #3f51b5;
+      }
+      #c_submit {
+        align-self: flex-start;
+      }
+      .status {
+        min-height: 20px;
+        font-size: 13px;
+        color: #1b1b1f;
+        opacity: 0.85;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="#top"
+          ><img
+            src="./public/images/ChatGPT Image Aug 25, 2025, 05_46_18 PM.png"
+            alt="Chíl by Penguin brand logo"
+        /></a>
+        <button class="menu-toggle" aria-label="Toggle menu" id="menuBtn">
+          ☰
+        </button>
+        <nav id="mainNav">
+          <a href="#features">Benefits</a>
+          <a href="#products">Products</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#buy" class="btn-primary">Buy Now</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero-banner" id="top">
+      <video class="bg-blur" autoplay muted loop playsinline>
+        <source src="./public/video/chil.mp4" type="video/mp4" />
+      </video>
+      <video id="heroVideo" autoplay muted loop playsinline>
+        <source src="./public/video/chil.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="hero-overlay"></div>
+    </section>
+
+    <section class="intro-text" id="introText">
+      <h1>Fuel Your Energy with Chíl by Penguin</h1>
+      <p>
+        Sparkling natural energy drink — Pineapple flavour. Sweetened with Tal
+        Mishri, no refined sugar. Bold taste, instant lift.
+      </p>
+      <a href="#buy" class="btn btn-primary">Buy Pineapple — ₹49</a>
+      <a href="#features" class="btn btn-secondary">Discover More</a>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <h2>Why Choose Chíl?</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>🍯 Natural Sweetness</h3>
+            <p>Sweetened with Tal Mishri for a clean, balanced taste.</p>
+          </div>
+          <div class="card">
+            <h3>⚡ Instant Energy</h3>
+            <p>A crisp sparkling boost to power through your day.</p>
+          </div>
+          <div class="card">
+            <h3>🚫 No Refined Sugar</h3>
+            <p>Zero compromise on health — all flavour, no crash.</p>
+          </div>
+          <div class="card">
+            <h3>💎 Mineral Rich</h3>
+            <p>
+              Tal Mishri contains trace minerals that support hydration and
+              overall wellness.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="products" id="products">
+      <div class="container">
+        <h2>Our Flavours</h2>
+        <div class="products-grid">
+          <div class="product-card">
+            <img src="./public/images/pineapple.png" alt="Pineapple Can" />
+            <h3>Pineapple</h3>
+            <p>Juicy, tangy-sweet tropical flavour with a refreshing bite.</p>
+          </div>
+          <div class="product-card">
+            <img
+              src="./public/images/strawberry_upgraded.png"
+              alt="Strawberry Can"
+            />
+            <h3>Strawberry</h3>
+            <p>Sweet, luscious berry taste with a naturally fruity aroma.</p>
+          </div>
+          <div class="product-card">
+            <img src="./public/images/blueberryy.png" alt="Blueberry Can" />
+            <h3>Blueberry</h3>
+            <p>Rich, mildly tart flavour with a burst of berry sweetness.</p>
+          </div>
+          <div class="product-card">
+            <img src="./public/images/Grreenapple.png" alt="GreenApple Can" />
+            <h3>Green Apple</h3>
+            <p>Crisp and tangy flavour with a refreshing sour-sweet balance.</p>
+          </div>
+          <div class="product-card">
+            <img src="./public/images/mango_upgraded.png" alt="Mango Can" />
+            <h3>Mango</h3>
+            <p>Ripe, golden sweetness with smooth tropical richness.</p>
+          </div>
+          <div class="product-card">
+            <img src="./public/images/Lemon_upgraded.png" alt="Lemon Can" />
+            <h3>Lemon</h3>
+            <p>Bright, zesty citrus flavour with a clean, sharp freshness.</p>
+          </div>
+          <div class="product-card">
+            <img src="./public/images/raspberryyy.png" alt="Raspberry Can" />
+            <h3>Raspberry</h3>
+            <p>Vibrant sweet-tart berry taste with a bold fruity punch.</p>
+          </div>
+          <div class="product-card">
+            <img src="./public/images/Aampanna.png" alt="Aam Panna Can" />
+            <h3>Aam Panna</h3>
+            <p>Refreshing raw mango tang with a hint of spiced sweetness.</p>
+          </div>
+          <div class="product-card">
+            <img src="./public/images/watermenon.png" alt="Watermelon can" />
+            <h3>Watermelon</h3>
+            <p>Light, cooling sweetness with a juicy, summery flavour.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+      <div class="container">
+        <h2>Loved by Drinkers</h2>
+        <div class="grid">
+          <div>
+            <div class="stars">★★★★★</div>
+            <p>“The ultimate fizzy energy. Tastes real, feels powerful.”</p>
+          </div>
+          <div>
+            <div class="stars">★★★★★</div>
+            <p>
+              “Finally a drink that refreshes and energises without the sugar
+              crash.”
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="buy">
+      <div class="container">
+        <h2>Grab Your Chíl Pineapple Now!</h2>
+        <p>One sip is all it takes to feel the energy and freshness.</p>
+        <a href="#checkout" class="btn btn-primary">Buy Now — ₹49</a>
+      </div>
+    </section>
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2>Contact Us</h2>
+        <form id="contactForm" autocomplete="on">
+          <div class="row">
+            <input
+              type="text"
+              id="c_name"
+              name="name"
+              placeholder="Your Name"
+              required
+            />
+            <input
+              type="tel"
+              id="c_phone"
+              name="phone"
+              placeholder="Mobile Number"
+              required
+            />
+          </div>
+          <div class="row">
+            <input
+              type="email"
+              id="c_email"
+              name="email"
+              placeholder="Email"
+              required
+            />
+          </div>
+          <textarea
+            id="c_message"
+            name="message"
+            rows="4"
+            placeholder="Your message…"
+            required
+          ></textarea>
+          <button class="btn btn-primary" type="submit" id="c_submit">
+            Send
+          </button>
+          <p id="c_status" class="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> Penguin Beverages Pvt. Ltd.</div>
+      <div>
+        Made with love • <a href="#">Privacy</a> • <a href="#">Refunds</a>
+      </div>
+    </footer>
+
+    <div id="checkout"></div>
+    <script>
+  document.querySelector("#year").textContent = new Date().getFullYear();
+
+  // Fade-in text below video after delay
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const intro = document.getElementById("introText");
+      intro.classList.add("show");
+      intro.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 4000);
+  });
+
+  // Smart video fit
+  const vid = document.getElementById("heroVideo");
+  function fitVideo() {
+    if (!vid.videoWidth) return;
+    const rV = vid.videoWidth / vid.videoHeight;
+    const rW = window.innerWidth / window.innerHeight;
+    if (Math.abs(rV - rW) > 0.45) {
+      vid.style.objectFit = "contain";
+      vid.style.objectPosition = "50% 50%";
+    } else {
+      vid.style.objectFit = "cover";
+      vid.style.objectPosition = "50% 35%";
+    }
+  }
+  vid.addEventListener("loadedmetadata", fitVideo);
+  window.addEventListener("resize", fitVideo);
+
+  // Mobile nav toggle
+  const menuBtn = document.getElementById("menuBtn");
+  const mainNav = document.getElementById("mainNav");
+  menuBtn?.addEventListener("click", () => {
+    mainNav.classList.toggle("show");
+  });
+
+  /* google sheet integration  */
+  const SHEET_WEBHOOK_URL =
+    "https://script.google.com/macros/s/AKfycbyBf1bVp3MUP-0Nvvv-7W8NcceMGY2PNeaHUbsgbzy3EiWqlVpxidbta9oWDIfoa1Pk/exec";
+
+  const form = document.getElementById("contactForm");
+  const statusEl = document.getElementById("c_status");
+  const submitBtn = document.getElementById("c_submit");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "Sending…";
+    submitBtn.disabled = true;
+
+    const payload = {
+      name: document.getElementById("c_name").value.trim(),
+      phone: document.getElementById("c_phone").value.trim(),
+      email: document.getElementById("c_email").value.trim(),
+      message: document.getElementById("c_message").value.trim(),
+      ts: new Date().toISOString(),
+    };
+
+    try {
+      const res = await fetch(SHEET_WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: new URLSearchParams(payload),
+      });
+
+      if (!res.ok) throw new Error("Non-2xx from Apps Script");
+
+      statusEl.textContent = "Thanks! We’ve received your message.";
+      form.reset();
+      saveLocal(payload, "sent");
+    } catch (err) {
+      saveLocal(payload, "queued");
+      statusEl.textContent =
+        "Offline/server busy. Saved locally; will retry next visit.";
+      console.error(err);
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  // Save to localStorage (simple queue)
+  function saveLocal(data, state) {
+    const key = "contact_submissions_v1";
+    const list = JSON.parse(localStorage.getItem(key) || "[]");
+    list.push({ state, ...data });
+    localStorage.setItem(key, JSON.stringify(list));
+  }
+</script>
+
+  </body>
 </html>
