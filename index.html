@@ -393,49 +393,291 @@
       }
 
       /* contactUspage */
-      .contact {
-        padding: 60px 20px;
-        background: #fff;
-        border-radius: 24px;
-        margin: 40px;
-      }
-      .contact h2 {
-        margin-bottom: 16px;
-      }
-      #contactForm {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        max-width: 640px;
-        margin: 0 auto;
-      }
-      #contactForm .row {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-      #contactForm input,
-      #contactForm textarea {
-        flex: 1;
-        padding: 12px 14px;
-        border: 1px solid rgba(0, 0, 0, 0.12);
-        border-radius: 10px;
-        font-size: 14px;
-        outline: none;
-      }
-      #contactForm input:focus,
-      #contactForm textarea:focus {
-        border-color: #3f51b5;
-      }
-      #c_submit {
-        align-self: flex-start;
-      }
-      .status {
-        min-height: 20px;
-        font-size: 13px;
-        color: #1b1b1f;
-        opacity: 0.85;
-      }
+/* CONTACT US SECTION */
+#contact {
+  background: linear-gradient(135deg, var(--bg3), var(--bg4));
+  color: #fff;
+  border-radius: 24px;
+  padding: 60px 20px;
+  margin: 40px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+#contact h2 {
+  font-size: clamp(24px, 5vw, 36px);
+  margin-bottom: 12px;
+  font-family: "Playfair Display", serif;
+  text-align: center;
+}
+
+#contactForm {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#contactForm .row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#contactForm input,
+#contactForm textarea {
+  flex: 1;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: inherit;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+#contactForm input:focus,
+#contactForm textarea:focus {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+}
+
+#c_submit {
+  background: #fff;
+  color: #111;
+  padding: 14px 24px;
+  font-weight: 700;
+  border-radius: 24px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  align-self: flex-start;
+}
+
+#c_submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+#c_status {
+  font-size: 14px;
+  margin-top: 8px;
+  color: #ffe16d;
+  min-height: 18px;
+}
+
+
+/* TAGLINE SECTION */
+#tagline {
+  text-align: center;
+  margin: 80px 20px;
+}
+
+.tagline {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(28px, 6vw, 64px);
+  font-weight: 800;
+  letter-spacing: 2px;
+
+  /* Gradient text cross-browser */
+  background: linear-gradient(90deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+
+  color: transparent; /* fallback */
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+
+  display: inline-block;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+  animation: glowPulse 4s infinite alternate;
+}
+
+/* Word-by-word animation */
+/* Fix for blurred / washed-out tagline caused by hero/video overlays */
+#tagline {
+  position: relative;    /* creates stacking context */
+  z-index: 1200;         /* place above hero/video/overlay/nav */
+  text-align: center;
+  margin: 80px 20px;
+  pointer-events: auto;
+  /* Ensure it renders on its own composite layer for crispness */
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+}
+
+/* Ensure no inherited filter/backdrop-filter blurs the element */
+#tagline,
+#tagline * {
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Tagline text: gradient + clear shadow */
+.tagline {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(28px, 6vw, 64px);
+  font-weight: 800;
+  letter-spacing: 2px;
+
+  /* Gradient text cross-browser */
+  background: linear-gradient(90deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+
+  color: transparent;                 /* fallback */
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+
+  display: inline-block;
+
+  /* reduce shadow so the gradient reads sharp (avoid heavy blur) */
+  text-shadow: 0 1px 0 rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.06);
+  /* Optional: hardware-accelerate the element */
+  will-change: transform, opacity;
+}
+
+/* Word-by-word animation (unchanged, but keep it crisp) */
+.tagline span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fadeUp 0.8s forwards;
+  will-change: transform, opacity;
+}
+
+.tagline span:nth-child(1) { animation-delay: 0.2s; }
+.tagline span:nth-child(2) { animation-delay: 1s; }
+.tagline span:nth-child(3) { animation-delay: 1.8s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+      /* FEEDBACK SECTION */
+#feedback {
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  color: #fff;
+  border-radius: 24px;
+  padding: 60px 20px;
+  margin: 40px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+#feedback h2 {
+  font-size: clamp(24px, 5vw, 36px);
+  margin-bottom: 12px;
+  font-family: "Playfair Display", serif;
+}
+
+#feedback p {
+  color: #f8f8f8;
+  margin-bottom: 28px;
+  font-size: 16px;
+}
+
+/* Form styling */
+#feedbackForm {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+}
+
+#feedbackForm label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+  display: block;
+  color: #fff;
+}
+
+#feedbackForm select,
+#feedbackForm input,
+#feedbackForm textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+#feedbackForm select:focus,
+#feedbackForm input:focus,
+#feedbackForm textarea:focus {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Row grouping */
+#feedbackForm .row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#feedbackForm .row input {
+  flex: 1;
+}
+
+/* Submit button */
+#f_submit {
+  background: #fff;
+  color: #111;
+  padding: 14px 24px;
+  font-weight: 700;
+  border-radius: 24px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#f_submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Status text */
+#f_status {
+  font-size: 14px;
+  margin-left: 12px;
+  color: #ffe16d;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #feedback {
+    margin: 24px 16px;
+    padding: 40px 16px;
+  }
+  #feedbackForm {
+    gap: 12px;
+  }
+}
+
+
+
     </style>
   </head>
   <body>
@@ -561,6 +803,14 @@
         </div>
       </div>
     </section>
+    <section id="tagline">
+  <h2 class="tagline">
+    <span>Sip.</span>
+    <span>Indulge.</span>
+    <span>Repeat.</span>
+  </h2>
+</section>
+
 
     <section class="reviews" id="reviews">
       <div class="container">
@@ -588,6 +838,45 @@
         <a href="#checkout" class="btn btn-primary">Buy Now — ₹49</a>
       </div>
     </section>
+    <!-- FEEDBACK SECTION -->
+<section id="feedback" class="contact">
+  <div class="container">
+    <h2>Give Feedback</h2>
+    <p>Choose the product and tell us what you think. We read everything!</p>
+
+    <form id="feedbackForm" autocomplete="on">
+      <label for="f_product">Product</label>
+      <select id="f_product" required>
+        <option value="">— Select product —</option>
+        <option value="Pineapple">Pineapple</option>
+        <option value="Strawberry">Strawberry</option>
+        <option value="Blueberry">Blueberry</option>
+        <option value="Green Apple">Green Apple</option>
+        <option value="Mango">Mango</option>
+        <option value="Lemon">Lemon</option>
+        <option value="Raspberry">Raspberry</option>
+        <option value="Aam Panna">Aam Panna</option>
+        <option value="Watermelon">Watermelon</option>
+      </select>
+
+      <div class="row">
+        <input type="text" id="f_name" placeholder="Your name (optional)" />
+        <input type="tel" id="f_phone" placeholder="Phone (optional)" />
+      </div>
+
+      <input type="email" id="f_email" placeholder="Email (optional)" />
+
+      <label for="f_message">Feedback</label>
+      <textarea id="f_message" rows="4" placeholder="Share your experience..." required></textarea>
+
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button type="submit" id="f_submit">Send feedback</button>
+        <span id="f_status"></span>
+      </div>
+    </form>
+  </div>
+</section>
+
     <section id="contact" class="contact">
       <div class="container">
         <h2>Contact Us</h2>
